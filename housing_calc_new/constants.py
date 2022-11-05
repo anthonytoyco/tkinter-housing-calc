@@ -1,3 +1,10 @@
+"""Constants for housing_calc_new."""
+
+QUESTION_TEXT_FONT = ("Arial", 20, "bold")
+MAIN_TEXT_FONT = ("Arial", 15)
+TITLE_TEXT_FONT_S25 = ("Arial", 25, "bold")
+TITLE_TEXT_FONT_S15 = ("Arial", 15, "bold")
+
 points = {
     "q1p1o1": 2,
     "q1p1o2": 1,
@@ -35,4 +42,8 @@ four_button_setup = {
     "2": 2,
     "3": 3,
     "4": 4,
+}
+
+questions = {
+    "q1": {"s1": 1, "s2": 2, "s3": 3, "s4": 4},
 }

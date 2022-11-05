@@ -4,33 +4,22 @@ Author: Anthony Toyco, Ryan Alumkal, Ryan Lin
 Date: Friday November 4, 2022
 Description: A program that calculates the likelihood of a
 student's acceptance into residency.
-
-# TODO: setup the InputPage class
-# TODO: setup the ChoicePage class and loop to change buttons, question
-#       prompts, and points granted on each button
-
 """
 
+# TODOLIST:
+# 1. setup the ChoicePage class and loop to change buttons (8 buttons?),
+#    question prompts, and points granted on each button.
+#    use .config() for this part?
+# 2. setup the EndPage class
+# 3. setup https://github.com/TomSchimansky/CustomTkinter
+
 import tkinter as tk
-
-from dicts import (
-    points,
-    prompts,
-    two_button_setup,
-    three_button_setup,
-    four_button_setup,
-)
-
-QUESTION_TEXT_FONT = ("Arial", 20, "bold")
-MAIN_TEXT_FONT = ("Arial", 15)
-TITLE_TEXT_FONT_S25 = ("Arial", 25, "bold")
-TITLE_TEXT_FONT_S15 = ("Arial", 15, "bold")
+import constants as c
 
 
 class App(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
-        self._page = None
 
         self.title("Mary Ward University - Housing Calculator")
         self.geometry("700x500")
@@ -38,6 +27,7 @@ class App(tk.Tk):
 
         self.logo = tk.PhotoImage(file="housing_calc_new/assets/mw_logo.png")
 
+        self._page = None
         self.replace_frame(StartPage)
 
     def replace_frame(self, page):
@@ -59,7 +49,7 @@ class StartPage(tk.Frame):
             self,
             fg="white",
             text="HOUSING SCORE CALCULATOR",
-            font=TITLE_TEXT_FONT_S25,
+            font=c.TITLE_TEXT_FONT_S25,
         )
         title_text_top.grid(row=0, column=0, pady=20)
 
@@ -67,7 +57,7 @@ class StartPage(tk.Frame):
             self,
             fg="white",
             text="By Mary Ward University",
-            font=TITLE_TEXT_FONT_S15,
+            font=c.TITLE_TEXT_FONT_S15,
         )
         title_text_under.grid(row=1, column=0)
 
@@ -77,42 +67,74 @@ class StartPage(tk.Frame):
         start_button = tk.Button(
             self,
             text="START",
-            font=MAIN_TEXT_FONT,
-            command=lambda: master.replace_frame(InputPage),
+            font=c.MAIN_TEXT_FONT,
+            command=lambda: master.replace_frame(CreditInputPage),
         )
         start_button.grid(row=3, column=0, pady=20)
 
 
-class InputPage(tk.Frame):
+class CreditInputPage(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
-        tk.Label(self, text="This is page two").pack(
-            side="top", fill="x", pady=10
-        )
-        tk.Button(
+
+        question_title = tk.Label(
             self,
-            text="Return to start page",
-            command=lambda: master.replace_frame(StartPage),
-        ).pack()
+            text="Q1S1: How many credits do you currently have?",
+            font=c.QUESTION_TEXT_FONT,
+        )
+        question_title.grid(row=0, column=0)
+
+        input_box_title = tk.Label(self, text="Enter an integer below")
+        input_box_title.grid(row=1, column=0, sticky="S")
+
+        input_box = tk.Entry(self, font=c.MAIN_TEXT_FONT)
+        input_box.grid(row=2, column=0)
+
+        self.input_box_error = tk.Label(
+            self, text="ERROR: Please enter a valid number!"
+        )
+
+        input_box_button = tk.Button(
+            self,
+            text="Submit",
+            font=c.MAIN_TEXT_FONT,
+            height="1",
+            width="5",
+            command=lambda: [
+                self.input_box_error.forget(),
+                self.input_verify(input_box.get()),
+            ],
+        )
+        input_box_button.grid(row=3, column=0)
+
+    def input_verify(self, user_entry):
+        try:
+            if (1 <= float(user_entry) <= 40) and (
+                float(user_entry) % 0.5 == 0
+            ):
+                self.input_box_error.grid_forget()
+                StudentData.credits = user_entry
+                self.master.replace_frame(ChoicePage)
+            else:
+                self.input_box_error.grid(row=4, column=0)
+        except ValueError:
+            self.input_box_error.grid(row=4, column=0)
 
 
 class ChoicePage(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
-        tk.Label(self, text="This is page two").pack(
-            side="top", fill="x", pady=10
-        )
-        tk.Button(
-            self,
-            text="Return to start page",
-            command=lambda: master.replace_frame(StartPage),
-        ).pack()
+
+        raise NotImplementedError("ChoicePage is not implemented yet")
+
+    # TODO: initialize 3 groups of buttons (g1 = 2 buttons, g2 = 3 buttons, g3 = 4 buttons).    # noqa: E501
+    #       groups will  will be independently displayed depending on question number.          # noqa: E501
+    #       use .config() to change the text and command of the buttons???
 
 
-class Counters:
-    def __init__(self, std_credits, std_points):
-        self.std_credits = std_credits
-        self.std_points = std_points
+class StudentData:
+    credits = 0
+    points = 0
 
 
 # MAIN PROGRAM #

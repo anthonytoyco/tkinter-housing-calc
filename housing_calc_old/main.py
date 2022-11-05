@@ -2,24 +2,20 @@
 Filename: MWU_Housing_Calculator_REPLIT.py
 Author: Anthony Toyco, Ryan Alumkal, Ryan Lin
 Date: Tuesday June 21, 2022
-Description: A program that assigns the order in which they enter residency based on a set of prompts, students are awarded points based on factors. 
+Description: A program that assigns the order in which they enter residency
+based on a set of prompts, students are awarded points based on factors.
 """
-
-### REPLIT VERSION ###
 
 import tkinter as tk
 
-#####################
-##### FUNCTIONS	#####
-#####################
+# FUNCTIONS
 
-##### Hide Widgets #####
+
 def hide_widgets(*widgets):
     for widget in widgets:
         widget.grid_forget()
 
 
-##### Question Calculations #####
 def calculate_points(answer):
     global point_counter
     if answer[0] == "q1":
@@ -158,7 +154,6 @@ def calculate_points(answer):
             pass
 
 
-##### Welcome Page #####
 def pg_welcome():
     # Reset/Initialize point counter variables
     global point_counter
@@ -186,7 +181,7 @@ def pg_welcome():
 
     # MW logo
     global logo
-    logo = tk.PhotoImage(file="mw_logo.png")
+    logo = tk.PhotoImage(file="housing_calc_old/mw_logo.png")
     logo_label = tk.Label(main_frame, image=logo, bg="#DCDCDD")
     logo_label.grid(row=2, column=1, columnspan=4)
 
@@ -205,10 +200,7 @@ def pg_welcome():
     next_page_button.grid(row=4, column=2, columnspan=2)
 
 
-##### Question 1 #####
 def pg_ques1_s1():
-
-    ### Question 1: Section 4 ###
     def pg_ques1_s4():
 
         # Question title
@@ -264,7 +256,6 @@ def pg_ques1_s1():
         )
         q1_s4_op3.grid(row=6, column=0, rowspan=3, columnspan=3)
 
-    ### Question 1: Section 3 ###
     def pg_ques1_s3():
 
         # Question title
@@ -305,7 +296,6 @@ def pg_ques1_s1():
         )
         q1_s3_op2.grid(row=3, column=3, rowspan=6, columnspan=3)
 
-    ### Question 1: Section 2 ###
     def pg_ques1_s2():
 
         # Question title
@@ -346,7 +336,6 @@ def pg_ques1_s1():
         )
         q1_s2_op2.grid(row=3, column=3, rowspan=6, columnspan=3)
 
-    ### Question 1: Section 1 - Verify Answer ###
     def input_verify(user_input):
 
         global credits, print_error
@@ -366,12 +355,10 @@ def pg_ques1_s1():
                 print_error = False
             else:
                 print_error = True
-        except:
+        except ValueError:
             print_error = True
-        if print_error == True:
+        if print_error:
             q1_s1_box_error.grid(row=6, column=1, columnspan=4)
-
-    ### Question 1: Section 1 ###
 
     global print_error
     print_error = False
@@ -404,9 +391,7 @@ def pg_ques1_s1():
     q1_s1_box_button.grid(row=4, column=1, columnspan=4)
 
 
-##### Question 2 #####
 def pg_ques2_s1():
-    ### Question 2: Section 2 ###
     def pg_ques2_s2():
 
         # Question title
@@ -485,7 +470,6 @@ def pg_ques2_s1():
         )
         q2_s2_op4.grid(row=6, column=3, rowspan=3, columnspan=3)
 
-    ### Question 2: Section 1 ###
     # Question title
     q2_s1_text = tk.Label(
         main_frame,
@@ -525,7 +509,6 @@ def pg_ques2_s1():
     q2_s1_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
 
-##### Question 3 #####
 def pg_ques3_s1():
     # Question title
     q3_s1_text = tk.Label(
@@ -566,7 +549,6 @@ def pg_ques3_s1():
     q3_s1_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
 
-##### Question 4 #####
 def pg_ques4_s1():
     # Question title
     q4_s1_text = tk.Label(
@@ -645,9 +627,7 @@ def pg_ques4_s1():
     q4_s1_op4.grid(row=6, column=3, rowspan=3, columnspan=3)
 
 
-##### Question 5 #####
 def pg_ques5_s1():
-    ### Question 5: Section 2 ###
     def pg_ques5_s2():
         # Question title
         q5_s2_text = tk.Label(
@@ -687,7 +667,6 @@ def pg_ques5_s1():
         )
         q5_s2_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
-    ### Question 5: Section 1 ###
     # Question title
     q5_s1_text = tk.Label(
         main_frame,
@@ -727,7 +706,6 @@ def pg_ques5_s1():
     q5_s1_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
 
-##### Question 6 #####
 def pg_ques6_s1():
     # Question title
     q6_s1_text = tk.Label(
@@ -768,9 +746,7 @@ def pg_ques6_s1():
     q6_s1_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
 
-##### Question 7 #####
 def pg_ques7_s1():
-    ### Question 7: Section 3 ###
     def pg_ques7_s3():
 
         # Question title
@@ -811,7 +787,6 @@ def pg_ques7_s1():
         )
         q7_s3_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
-    ### Question 7: Section 2 ###
     def pg_ques7_s2():
 
         # Question title
@@ -852,7 +827,6 @@ def pg_ques7_s1():
         )
         q7_s2_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
-    ### Question 7: Section 1 ###
     # Question title
     q7_s1_text = tk.Label(
         main_frame,
@@ -892,9 +866,7 @@ def pg_ques7_s1():
     q7_s1_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
 
-##### Question 8 #####
 def pg_ques8_s1():
-    ### Question 8: Section 3 ###
     def pg_ques8_s3():
 
         # Question title
@@ -935,7 +907,6 @@ def pg_ques8_s1():
         )
         q8_s3_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
-    ### Question 8: Section 2 ###
     def pg_ques8_s2():
 
         # Question title
@@ -976,7 +947,6 @@ def pg_ques8_s1():
         )
         q8_s2_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
-    ### Question 8: Section 1 ###
     # Question title
     q8_s1_text = tk.Label(
         main_frame,
@@ -1016,7 +986,6 @@ def pg_ques8_s1():
     q8_s1_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
 
-##### Question 9 #####
 def pg_ques9_s1():
     # Question title
     q9_s1_text = tk.Label(
@@ -1057,9 +1026,7 @@ def pg_ques9_s1():
     q9_s1_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
 
-##### Question 10 #####
 def pg_ques10_s1():
-    ### Question 10: Section 2 ###
     def pg_ques10_s2():
 
         # Question title
@@ -1115,7 +1082,6 @@ def pg_ques10_s1():
         )
         q10_s1_op3.grid(row=6, column=0, rowspan=3, columnspan=3)
 
-    ### Question 10: Section 1 ###
     # Question title
     q10_s1_text = tk.Label(
         main_frame, text="Q10S1: Are you on OSAP?", font=question_text_font
@@ -1153,9 +1119,7 @@ def pg_ques10_s1():
     q10_s1_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
 
-##### Question 11 #####
 def pg_ques11_s1():
-    ### Question 11: Section 2 ###
     def pg_ques11_s2():
 
         # Question title
@@ -1196,7 +1160,6 @@ def pg_ques11_s1():
         )
         q11_s2_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
-    ### Question 11: Section 1 ###
     # Question title
     q11_s1_text = tk.Label(
         main_frame,
@@ -1236,9 +1199,8 @@ def pg_ques11_s1():
     q11_s1_op2.grid(row=3, column=3, rowspan=3, columnspan=3)
 
 
-##### Question 12 #####
 def pg_ques12_s1():
-    ### Question 12: Section 1 ###
+
     # Question title
     q12_s1_text = tk.Label(
         main_frame,
@@ -1293,11 +1255,10 @@ def pg_ques12_s1():
     q12_s1_op3.grid(row=6, column=0, rowspan=3, columnspan=3)
 
 
-##### End Page #####
 def pg_end():
     # MW logo
     global logo
-    logo = tk.PhotoImage(file="mw_logo.png")
+    logo = tk.PhotoImage(file="housing_calc_old/mw_logo.png")
     logo_label = tk.Label(main_frame, image=logo, bg="#DCDCDD")
     logo_label.grid(row=0, column=1, columnspan=4)
 
@@ -1327,21 +1288,16 @@ def pg_end():
     repeat_button.grid(row=4, column=1, columnspan=4)
 
 
-########################
-##### MAIN PROGRAM #####
-########################
-
-### Window Setup ###
 win = tk.Tk()
 win.title("Mary Ward University")
 win.minsize("700", "500")
 win.maxsize("700", "500")
 
-### Creating Frames ###
+
 main_frame = tk.Frame(win, width="700", height="500")
 main_frame.pack()
 
-### Grid Config ###
+
 main_frame.rowconfigure(0, weight=2)
 main_frame.rowconfigure(1, weight=2)
 main_frame.rowconfigure(2, weight=2)
@@ -1357,26 +1313,26 @@ main_frame.columnconfigure(3, weight=1)
 main_frame.columnconfigure(4, weight=1)
 main_frame.columnconfigure(5, weight=1)
 
-### Background Setup ###
+
 background = tk.Frame(main_frame, bg="#DCDCDD", width="700", height="500")
 background.grid(row=0, column=0, rowspan=9, columnspan=6)
 
-### Fonts Setup ###
+
 question_text_font = ("FreeSans", 20, "bold")
 main_text_font = ("FreeSans", 15)
 title_text_font_s25 = ("FreeSans", 27, "bold")
 title_text_font_s15 = ("FreeSans", 15, "bold")
 
-### Initialize Point Counter ###
+
 point_counter = 100
 
-### Error For Question 1 ###
+
 q1_s1_box_error = tk.Label(
     main_frame, text="ERROR: Please enter a valid input!", font=main_text_font
 )
 
-### Display Welcome Page + Start Form ###
+
 pg_welcome()
 
-### Loop ###
+
 win.mainloop()
