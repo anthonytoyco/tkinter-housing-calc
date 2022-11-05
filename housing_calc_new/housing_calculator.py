@@ -4,11 +4,22 @@ Author: Anthony Toyco, Ryan Alumkal, Ryan Lin
 Date: Friday November 4, 2022
 Description: A program that calculates the likelihood of a
 student's acceptance into residency.
+
+# TODO: setup the InputPage class
+# TODO: setup the ChoicePage class and loop to change buttons, question
+#       prompts, and points granted on each button
+
 """
 
 import tkinter as tk
 
-from dicts import points_dict, prompts, button_order
+from dicts import (
+    points,
+    prompts,
+    two_button_setup,
+    three_button_setup,
+    four_button_setup,
+)
 
 QUESTION_TEXT_FONT = ("Arial", 20, "bold")
 MAIN_TEXT_FONT = ("Arial", 15)

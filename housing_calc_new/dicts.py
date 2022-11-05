@@ -1,4 +1,4 @@
-points_dict = {
+points = {
     "q1p1o1": 2,
     "q1p1o2": 1,
     "q1p1o3": 0,
@@ -19,7 +19,18 @@ prompts = {
     "q1p4": "Please specify the reason on why you have been denied residence:",
 }
 
-button_order = {
+two_button_setup = {
+    "1": 1,
+    "2": 2,
+}
+
+three_button_setup = {
+    "1": 1,
+    "2": 2,
+    "3": 3,
+}
+
+four_button_setup = {
     "1": 1,
     "2": 2,
     "3": 3,
