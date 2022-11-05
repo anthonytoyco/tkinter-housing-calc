@@ -19,4 +19,9 @@ prompts = {
     "q1p4": "Please specify the reason on why you have been denied residence:",
 }
 
-print("test")
+button_order = {
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+}
