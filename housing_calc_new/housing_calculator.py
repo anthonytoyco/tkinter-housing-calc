@@ -1,11 +1,3 @@
-"""
-Filename: housing_calculator_main.py
-Author: Anthony Toyco, Ryan Alumkal, Ryan Lin
-Date: Friday November 4, 2022
-Description: A program that calculates the likelihood of a
-student's acceptance into residency.
-"""
-
 # TODOLIST:
 # 1. setup the ChoicePage class and loop to change buttons (8 buttons?),
 #    question prompts, and points granted on each button.
