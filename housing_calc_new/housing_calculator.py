@@ -1,26 +1,29 @@
-# TODOLIST:
-# 1. setup the ChoicePage class and loop to change buttons (8 buttons?),
-#    question prompts, and points granted on each button.
-#    use .config() for this part?
-# 2. setup the EndPage class
-# 3. setup https://github.com/TomSchimansky/CustomTkinter
-
 import tkinter as tk
+import customtkinter as ct
 import constants as c
 
 
-class App(tk.Tk):
+class App(ct.CTk):
     def __init__(self):
-        tk.Tk.__init__(self)
+        super().__init__()
+        self._page = None
 
+        self.geometry(f"{700}x{500}")
         self.title("Mary Ward University - Housing Calculator")
-        self.geometry("700x500")
         self.resizable(False, False)
 
         self.logo = tk.PhotoImage(file="housing_calc_new/assets/mw_logo.png")
 
-        self._page = None
-        self.replace_frame(StartPage)
+        self.logo_label = tk.Label(self, image=self.logo, bg="#DCDCDD")
+        self.logo_label.pack(ipady=20, fill="both", expand=True)
+
+        self.after(
+            1000,
+            lambda: [
+                self.replace_frame(StartPage),
+                self.logo_label.destroy(),
+            ],
+        )
 
     def replace_frame(self, page):
         new_page = page(self)
@@ -30,39 +33,39 @@ class App(tk.Tk):
         self._page.pack()
 
 
-class StartPage(tk.Frame):
+class StartPage(ct.CTkFrame):
     def __init__(self, master):
-        tk.Frame.__init__(self, master)
+        super().__init__(master)
 
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure((0, 1, 2, 3), weight=1)
+        self.grid_columnconfigure((0, 1, 2, 3), weight=1)
 
-        title_text_top = tk.Label(
+        self.title_text_top = ct.CTkLabel(
             self,
-            fg="white",
             text="HOUSING SCORE CALCULATOR",
-            font=c.TITLE_TEXT_FONT_S25,
+            text_font=c.TITLE_TEXT_FONT_S25,
         )
-        title_text_top.grid(row=0, column=0, pady=20)
+        self.title_text_top.grid(row=0, column=0, columnspan=4)
 
-        title_text_under = tk.Label(
+        self.title_text_under = ct.CTkLabel(
             self,
-            fg="white",
             text="By Mary Ward University",
-            font=c.TITLE_TEXT_FONT_S15,
+            text_font=c.TITLE_TEXT_FONT_S15,
         )
-        title_text_under.grid(row=1, column=0)
+        self.title_text_under.grid(row=1, column=0, columnspan=4)
 
-        logo_label = tk.Label(self, image=master.logo, bg="white")
-        logo_label.grid(row=2, column=0)
+        self.logo_label = ct.CTkLabel(
+            self, image=master.logo, bg_color="#DCDCDD"
+        )
+        self.logo_label.grid(row=2, column=0)
 
-        start_button = tk.Button(
+        self.start_button = tk.Button(
             self,
             text="START",
             font=c.MAIN_TEXT_FONT,
             command=lambda: master.replace_frame(CreditInputPage),
         )
-        start_button.grid(row=3, column=0, pady=20)
+        self.start_button.grid(row=3, column=0, pady=20)
 
 
 class CreditInputPage(tk.Frame):
