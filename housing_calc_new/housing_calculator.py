@@ -1,6 +1,7 @@
 import tkinter as tk
-import customtkinter as ct
+
 import constants as c
+import customtkinter as ct
 
 
 class App(ct.CTk):
@@ -11,17 +12,26 @@ class App(ct.CTk):
         self.geometry(f"{700}x{500}")
         self.title("Mary Ward University - Housing Calculator")
         self.resizable(False, False)
+        self.configure(fg_color=c.FRAME_BG_COLOR)
 
         self.logo = tk.PhotoImage(file="housing_calc_new/assets/mw_logo.png")
 
-        self.logo_label = tk.Label(self, image=self.logo, bg="#DCDCDD")
-        self.logo_label.pack(ipady=20, fill="both", expand=True)
+        self.logo_label = ct.CTkLabel(self, image=self.logo, bg="#DCDCDD")
+        self.logo_label.pack(pady=(140, 0), expand=True)
+        self.name = ct.CTkLabel(
+            self,
+            text="Mary Ward University",
+            text_color="#2B2B2C",
+            text_font=c.TITLE_TEXT_FONT_S25,
+        )
+        self.name.pack(pady=(0, 170), expand=True)
 
         self.after(
             1000,
             lambda: [
                 self.replace_frame(StartPage),
                 self.logo_label.destroy(),
+                self.name.destroy(),
             ],
         )
 
@@ -39,68 +49,81 @@ class StartPage(ct.CTkFrame):
 
         self.grid_rowconfigure((0, 1, 2, 3), weight=1)
         self.grid_columnconfigure((0, 1, 2, 3), weight=1)
+        self.configure(fg_color="#DCDCDD")
 
         self.title_text_top = ct.CTkLabel(
             self,
             text="HOUSING SCORE CALCULATOR",
+            text_color="#2B2B2C",
             text_font=c.TITLE_TEXT_FONT_S25,
         )
-        self.title_text_top.grid(row=0, column=0, columnspan=4)
+        self.title_text_top.grid(row=0, column=0, columnspan=4, pady=(50, 0))
 
         self.title_text_under = ct.CTkLabel(
             self,
             text="By Mary Ward University",
+            text_color="#2B2B2C",
             text_font=c.TITLE_TEXT_FONT_S15,
         )
-        self.title_text_under.grid(row=1, column=0, columnspan=4)
+        self.title_text_under.grid(row=1, column=0, columnspan=4, sticky="N")
 
-        self.logo_label = ct.CTkLabel(
-            self, image=master.logo, bg_color="#DCDCDD"
-        )
-        self.logo_label.grid(row=2, column=0)
+        self.logo_label = ct.CTkLabel(self, image=master.logo)
+        self.logo_label.grid(row=2, column=0, columnspan=4, pady=(39, 40))
 
-        self.start_button = tk.Button(
+        self.start_button = ct.CTkButton(
             self,
             text="START",
-            font=c.MAIN_TEXT_FONT,
+            fg_color="#2B2B2C",
+            hover_color="#001B4B",
+            text_font=c.TITLE_TEXT_FONT_S15,
             command=lambda: master.replace_frame(CreditInputPage),
         )
-        self.start_button.grid(row=3, column=0, pady=20)
+        self.start_button.grid(row=3, column=0, columnspan=4, pady=10)
 
 
-class CreditInputPage(tk.Frame):
+class CreditInputPage(ct.CTkFrame):
     def __init__(self, master):
-        tk.Frame.__init__(self, master)
+        super().__init__(master)
 
-        question_title = tk.Label(
+        self.configure(fg_color="#DCDCDD")
+
+        self.question_title = ct.CTkLabel(
             self,
             text="Q1S1: How many credits do you currently have?",
-            font=c.QUESTION_TEXT_FONT,
+            text_color="#2B2B2C",
+            text_font=c.QUESTION_TEXT_FONT,
         )
-        question_title.grid(row=0, column=0)
+        self.question_title.grid(row=0, column=0, columnspan=4, pady=(50, 0))
 
-        input_box_title = tk.Label(self, text="Enter an integer below")
-        input_box_title.grid(row=1, column=0, sticky="S")
-
-        input_box = tk.Entry(self, font=c.MAIN_TEXT_FONT)
-        input_box.grid(row=2, column=0)
-
-        self.input_box_error = tk.Label(
-            self, text="ERROR: Please enter a valid number!"
+        self.input_box_title = ct.CTkLabel(
+            self, text="Enter an integer below", text_color="#2B2B2C"
+        )
+        self.input_box_title.grid(
+            row=1, column=0, columnspan=4, sticky="S", pady=(50, 10)
         )
 
-        input_box_button = tk.Button(
+        self.input_box = ct.CTkEntry(self, text_font=c.MAIN_TEXT_FONT)
+        self.input_box.grid(row=2, column=0, columnspan=4, pady=(0, 10))
+
+        self.input_box_error = ct.CTkLabel(
             self,
-            text="Submit",
-            font=c.MAIN_TEXT_FONT,
-            height="1",
-            width="5",
+            text="ERROR: Please enter a valid number!",
+            text_color="#FF0000",
+            text_font=c.MAIN_TEXT_FONT,
+        )
+
+        self.input_box_button = ct.CTkButton(
+            self,
+            text="SUBMIT",
+            fg_color="#2B2B2C",
+            hover_color="#001B4B",
+            text_font=c.TITLE_TEXT_FONT_S15,
             command=lambda: [
                 self.input_box_error.forget(),
-                self.input_verify(input_box.get()),
+                self.input_verify(self.input_box.get()),
             ],
         )
-        input_box_button.grid(row=3, column=0)
+        self.input_box_button.grid(row=3, column=0, columnspan=4, pady=10)
 
     def input_verify(self, user_entry):
         try:
@@ -111,9 +134,9 @@ class CreditInputPage(tk.Frame):
                 StudentData.credits = user_entry
                 self.master.replace_frame(ChoicePage)
             else:
-                self.input_box_error.grid(row=4, column=0)
+                self.input_box_error.grid(row=4, column=0, columnspan=4)
         except ValueError:
-            self.input_box_error.grid(row=4, column=0)
+            self.input_box_error.grid(row=4, column=0, columnspan=4)
 
 
 class ChoicePage(tk.Frame):
@@ -123,7 +146,7 @@ class ChoicePage(tk.Frame):
         raise NotImplementedError("ChoicePage is not implemented yet")
 
     # TODO: initialize 3 groups of buttons (g1 = 2 buttons, g2 = 3 buttons, g3 = 4 buttons).    # noqa: E501
-    #       groups will  will be independently displayed depending on question number.          # noqa: E501
+    #       groups will be independently displayed depending on question number.          # noqa: E501
     #       use .config() to change the text and command of the buttons???
 
 

@@ -4,6 +4,7 @@ QUESTION_TEXT_FONT = ("Arial", 20, "bold")
 MAIN_TEXT_FONT = ("Arial", 15)
 TITLE_TEXT_FONT_S25 = ("Arial", 25, "bold")
 TITLE_TEXT_FONT_S15 = ("Arial", 15, "bold")
+FRAME_BG_COLOR = "#DCDCDD"
 
 points = {
     "q1p1o1": 2,
